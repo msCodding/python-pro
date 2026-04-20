@@ -52,10 +52,6 @@ class Player(GameObject):
             self.flip = True
         self.velocity_y += gravity
         self.rect.y += self.velocity_y
-        # если коснулся нижней границей пола оттолкнуться -20
-        # if self.rect.bottom > h:
-        #     self.rect.bottom = h
-        #     self.velocity_y = -20
         for p in platform_group:
             if p.rect.colliderect(self.rect):
                 if self.rect.bottom < p.rect.bottom:
@@ -94,7 +90,9 @@ platform_group = pygame.sprite.Group()
 platform_group.add(platform)
 
 
-def showText(label, x, y,size=60,font='game_over_TagType.ttf',color=(255, 0, 0)):
+def showText(label, x, y,size=60,
+                         font='game_over_TagType.ttf',
+                         color=(255, 0, 0)):
     f1 = pygame.font.Font(font, size)
     text = f1.render(label, True, color)
     screen.blit(text, (x, y))
@@ -110,7 +108,7 @@ while run:
         bg_scroll += scroll
         if len(platform_group) < max_platforms:
             x = r(100, w - 100)
-            y = platform.rect.y - r(130, h - 130)
+            y = platform.rect.y - r(20, h - 130)
             type = choice(['static','moving','broke'])
             plat = Platform(x, y,type)
             platform_group.add(plat)
